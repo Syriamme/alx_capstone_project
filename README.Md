@@ -34,18 +34,11 @@ Users can set budget limits for different expense categories, helping them stick
 
 ### Database
 
-- SQLite
+- MySQL
 
 ### Charting Library
 
 - Chart.js
-
-## Screenshots or Demo
-
-[Link to Live Demo](#) *- Insert a link to your live demo if available.*
-
-![Screenshot 1](screenshots/screenshot1.png)
-![Screenshot 2](screenshots/screenshot2.png)
 
 ## Roadmap and Future Enhancements
 
@@ -63,9 +56,9 @@ Allow users to generate and export detailed financial reports.
 
 ## Contact Information
 
-- **Your Name:** [Your Name]
-- **Email:** [Your Email]
-- **GitHub:** [Your GitHub Profile]
-- **LinkedIn:** [Your LinkedIn Profile]
-- **Twitter:** [Your Twitter Profile]
-- **Website:** [Your Personal Website]
+- **Your Name:** Daniel Njagi
+- **Email:** Roridaniel01@gmail.com
+- **GitHub:** https://github.com/Syriamme
+- **LinkedIn:** https://ke.linkedin.com/in/daniel-njagi-4604a917b
+- **Twitter:** https://twitter.com/Roridaniel01
+- **Website:** Lyonec.com
