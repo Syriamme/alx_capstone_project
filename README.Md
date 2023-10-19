@@ -62,3 +62,4 @@ Allow users to generate and export detailed financial reports.
 - **LinkedIn:** https://ke.linkedin.com/in/daniel-njagi-4604a917b
 - **Twitter:** https://twitter.com/Roridaniel01
 - **Website:** Lyonec.com
+
