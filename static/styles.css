@@ -1,0 +1,272 @@
+/* Body and text */
+html, body {
+  font-family: Arial, sans-serif;
+  background: #3165B2;
+  color: #fff;
+}
+h2 {
+  color: #000
+}
+
+.button {
+  background-color: #34e89e;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+/* Navigation bar */
+nav {
+  color: white;
+  padding: 20px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar {
+  list-style: none;
+  display: flex;
+}
+
+.navbar li {
+  margin-right: 20px;
+}
+
+.navbar a {
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+  transition: color 0.3s;
+}
+
+.navbar a:hover {
+  color: #34e89e;
+}
+
+/* Logo */
+.logo img {
+  max-width: 100px;
+}
+
+h1 {
+  text-align: center;
+}
+
+/* Balance section */
+.balance {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-direction: column;
+}
+.balance-amount {
+  background-color: #49cb6e;
+  padding: 10px;
+  border-radius: 20px;
+  text-align: center;
+  font-weight: bold;
+  height: 70px;
+  width: 150px;
+  font-size: xx-large;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+}
+.current-finance-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items:center;
+  align-content: space-evenly;
+  margin-left: 20%;
+  margin-right: 20%;
+}
+/* current income and expenses */
+.current-income, .current-expense {
+  background-color: white;
+  color:#000;
+  font-size: large;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  margin: 20px 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items:center;
+  align-content: space-around;
+  height: 20px;
+}
+.emoji {
+  font-size: 20px;
+  margin-left: 5px;
+}
+
+/* forms */
+.form-container {
+  display: flex;
+  justify-content: space-evenly;
+  align-content: space-around;
+  margin: 0 auto;
+  padding: 20px;
+  border-radius: 20%;
+}
+
+/* CSS for styling the individual forms */
+.form {
+  width: 30%;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  color: #000;
+  margin: 5px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  display: flex;
+  justify-content: space-evenly;
+  align-content: space-around;
+  flex-direction: column;
+}
+
+/* CSS for labels */
+label {
+  font-weight: bold;
+}
+
+/* CSS for input fields and select */
+input[type="date"],
+input[type="text"],
+input[type="number"],
+select {
+  width: 100%;
+  padding: 10px;
+  margin: 5px 0;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+/* CSS for the buttons */
+button {
+  background-color: #007bff;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+/* CSS for error messages */
+#expense-error-message {
+  color: #fff;
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+/* Media query to make the forms stack on top of each other on smaller screens */
+@media (max-width: 768px) {
+  .form-container {
+    flex-direction: column;
+  }
+
+  .form {
+    width: 100%;
+  }
+}
+
+/* Style the container */
+.expense-table {
+  width: 50%;
+  margin: 0 auto;
+  padding: 20px;
+  border: 2px solid  #3165B2;
+  border-radius: 8px;
+  background-color: #ecf0f1;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Style the table header */
+.expense-table h2 {
+  text-align: center;
+  margin-bottom: 10px;
+  font-size: 24px;
+  color: #333;
+}
+
+/* Style the table */
+.expense-table table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+/* table headers */
+.expense-table th {
+  background-color:#3165B2;
+  color: #fff;
+  padding: 10px;
+  text-align: left;
+}
+
+/* alternating rows */
+.expense-table tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+/* table cells */
+.expense-table td {
+  padding: 10px;
+  text-align: left;
+}
+
+#food-expense,
+#rent-expense,
+#transport-expense,
+#loan-expense,
+#entertainment-expense {
+  font-weight: bold;
+  color: #e74c3c;
+}
+.tabname {
+  color:#000;
+}
+
+/* Footer */
+footer {
+  color: white;
+  text-align: center;
+  padding: 20px 0;
+}
+
+.footer-menu {
+  list-style: none;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  align-content: center;
+  margin-top: 10px;
+}
+
+.footer-menu li {
+  margin-right: 20px;
+}
+
+.footer-menu a {
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+  transition: color 0.3s;
+}
+
+.footer-menu a:hover {
+  color: #34e89e;
+}

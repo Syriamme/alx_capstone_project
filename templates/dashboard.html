@@ -1,0 +1,157 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="main-content">
+    <div class="dashboard-box">
+        <div class="dashboard-item">
+            <h2>Remaining Balance</h2>
+            <p class="balance">$5,000.00</p>
+        </div>
+        <div class="dashboard-item">
+            <h2>Current Income</h2>
+            <p class="current-income-amount">$2,000.00</p>
+        </div>
+        <div class="dashboard-item">
+            <h2>Current Expenses</h2>
+            <p class="current-expense-amount">$3,000.00</p>
+        </div>
+    </div>
+</div>
+<div class="dashboard-container">
+    <nav class="sidebar">
+        <ul>
+            <li>
+                <a href="#" id="summary-link"><i class="fas fa-chart-pie"></i> Summary Overview</a>
+            </li>
+            <li>
+                <a href="#" id="transaction-history-link"><i class="fas fa-history"></i> Transaction History</a>
+            </li>
+            <li>
+                <a href="#" id="visual-representations-link"><i class="fas fa-chart-bar"></i> Visual Representations</a>
+            </li>
+            <li>
+                <a href="#" id="settings-link"><i class="fas fa-cog"></i> Settings and Preferences</a>
+            </li>
+            <li>
+                <a href="#" id="reports-link"><i class="fas fa-lightbulb"></i> Reports or Insights</a>
+            </li>
+            <li>
+                <a href="#" id="logout-link"><i class="fas fa-sign-out-alt"></i> Logout/Account Management</a>
+            </li>
+        </ul>
+    </nav>
+    <div class="transaction-content" style="display: none;">
+        <div id="transaction-tables">
+            <table class="custom-table" id="income-table">
+                <h2 class="incomeh">Income Transactions</h2>
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Date</th>
+                        <th>Description</th>
+                        <th>Amount</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+            <table class="custom-table" id="expense-table">
+                <h2 class="expenseh">Expense Transactions</h2>
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Date</th>
+                        <th>Description</th>
+                        <th>Amount</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    // Function to populate transaction tables
+    function populateTransactionTables() {
+        fetch('/get_transactions')
+            .then(response => response.json())
+            .then(data => {
+                const incomeTable = document.querySelector('#income-table tbody');
+                const expenseTable = document.querySelector('#expense-table tbody');
+
+                incomeTable.innerHTML = '';
+                expenseTable.innerHTML = '';
+
+                data.forEach(transaction => {
+                    const row = document.createElement('tr');
+                    row.setAttribute('data-transaction-id', transaction.id);
+                    row.innerHTML = `
+                        <td>${transaction.id}</td>
+                        <td>${transaction.date}</td>
+                        <td>${transaction.description}</td>
+                        <td>${transaction.amount}</td>
+                        <td>
+                            <button onclick="editTransaction(${transaction.id})">Edit</button>
+                            <button onclick="deleteTransaction(${transaction.id})">Delete</button>
+                        </td>
+                    `;
+
+                    if (transaction.type === 'income') {
+                        incomeTable.appendChild(row);
+                    } else if (transaction.type === 'expense') {
+                        expenseTable.appendChild(row);
+                    }
+                });
+
+                // Display the transaction tables
+                const transactionContent = document.querySelector('.transaction-content');
+                transactionContent.style.display = 'block';
+            })
+            .catch(error => {
+                console.error('Error fetching transaction data:', error);
+            });
+    }  
+
+    // Function to handle deleting a transaction
+    function deleteTransaction(transactionId) {
+        // Implement the logic to delete a transaction based on its ID here
+        // You should confirm the deletion with the user and then send a request to the server.
+    }
+
+    // Function to handle Summary Overview button
+    document.getElementById('summary-link').addEventListener('click', function () {
+        // Implementation for the Summary Overview button
+    });
+
+    // Function to handle Visual Representations button
+    document.getElementById('visual-representations-link').addEventListener('click', function () {
+        // Implementation for the Visual Representations button
+    });
+
+    // Function to handle Settings and Preferences button
+    document.getElementById('settings-link').addEventListener('click', function () {
+        // Implementation for the Settings and Preferences button
+    });
+
+    // Function to handle Reports or Insights button
+    document.getElementById('reports-link').addEventListener('click', function () {
+        // Implementation for the Reports or Insights button
+    });
+
+    // Function to handle Logout/Account Management button
+    document.getElementById('logout-link').addEventListener('click', function () {
+        // Implementation for the Logout/Account Management button
+    });
+
+    // Add an event listener to the "Transaction History" link
+    document.getElementById('transaction-history-link').addEventListener('click', function (event) {
+        event.preventDefault();
+        populateTransactionTables();
+    });
+});
+</script>
+{% endblock %}

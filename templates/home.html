@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="balance">
+    <h2>Remaining Balance:</h2>
+    <span class="balance-amount"></span>
+</div>
+
+<div class="current-finance-container">
+    <div class="current-income">
+        <h2 class="current-finance-text">Current Income:</h2>
+        <p class="current-income-amount"><span class="emoji">💰</span></p>
+    </div>
+    <div class="current-expense">
+        <h2 class="current-finance-text">Current Expense:</h2>
+        <p class="current-expense-amount"><span class="emoji">💸</span></p>
+    </div>
+</div>
+
+<div class="form-container">
+    <form id="income-form" class="form" method="POST" action="/add_income">
+        <label for="income-date">Date:</label>
+        <input type="date" id="income-date" name="income-date" required><br>
+
+        <label for="income-description">Description:</label>
+        <input type="text" id="income-description" name="income-description" required><br>
+        <label for="income-amount">Amount:</label>
+        <input type="text" id="income-amount" name="income-amount" required><br>
+
+        <div id="income-error-message"></div>
+        <br>
+        <button type="submit" id="add-income-button">Add Income</button>
+    </form>
+
+    <form id="expense-form" class="form" method="POST" action="/add_expense">
+        <label for="expense-date">Date:</label>
+        <input type="date" id="expense-date" name="expense-date" required><br>
+
+        <label for="expense-description">Description:</label>
+        <input type="text" id="expense-description" name="expense-description" required><br>
+
+        <label for="expense-category">Category:</label>
+        <select id="expense-category" name="expense-category" required>
+            <option value="food">Food</option>
+            <option value="rent">Rent</option>
+            <option value="transport">Transport</option>
+            <option value="loan">Loan</option>
+            <option value="entertainment">Entertainment</option>
+        </select><br>
+
+        <label for="expense-amount">Amount:</label>
+        <input type="text" id="expense-amount" name="expense-amount" required><br>
+
+        <div id="expense-error-message"></div>
+        <br>
+        <button type="submit" id="add-expense-button">Add Expense</button>
+    </form>
+</div>
+
+<div class="expense-table">
+    <h2>Expense Categories</h2>
+    <table>
+        <tr>
+            <th>Category</th>
+            <th>Amount</th>
+        </tr>
+        <tr>
+            <td class="tabname">Food</td>
+            <td id="food-expense">0.00</td>
+        </tr>
+        <tr>
+            <td class="tabname">Rent</td>
+            <td id="rent-expense">0.00</td>
+        </tr>
+        <tr>
+            <td class="tabname">Transport</td>
+            <td id="transport-expense">0.00</td>
+        </tr>
+        <tr>
+            <td class="tabname">Loan</td>
+            <td id="loan-expense">0.00</td>
+        </tr>
+        <tr>
+            <td class="tabname">Entertainment</td>
+            <td id="entertainment-expense">0.00</td>
+        </tr>
+    </table>
+</div>
+{% endblock %}
