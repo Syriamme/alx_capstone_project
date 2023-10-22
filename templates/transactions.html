@@ -84,13 +84,13 @@
                 <td class="table-data">
                     <button class="delete-button delete-income-button" data-transaction-id="{{ income.id }}">Delete</button>
                     <button class="edit-button edit-income-button" data-transaction-id="{{ income.id }}">Edit</button>
+                    <form class="edit-transaction-form" data-transaction-id="{{ income.id }}" style="display: none;">
+                        <input type="text" name="income-date" placeholder="Date" value="{{ income.income_date }}">
+                        <input type="text" name="income-description" placeholder="Description" value="{{ income.income_description }}">
+                        <input type="text" name="income-amount" placeholder="Amount" value="{{ income.income_amount }}">
+                        <button class="save-edit-button" data-transaction-id="{{ income.id }}">Save</button>
+                    </form>
                 </td>
-                <form class="edit-transaction-form" data-transaction-id="{{ income.id }}" style="display: none;">
-                    <input type="text" name="income-date" placeholder="Date" value="{{ income.income_date }}">
-                    <input type="text" name="income-description" placeholder="Description" value="{{ income.income_description }}">
-                    <input type="text" name="income-amount" placeholder="Amount" value="{{ income.income_amount }}">
-                    <button class="save-edit-button" data-transaction-id="{{ income.id }}">Save</button>
-                </form>
             </tr>
             {% endfor %}
         </table>
@@ -115,6 +115,14 @@
                 <td class="table-data">
                     <button class="delete-button delete-expense-button" data-transaction-id="{{ expense.id }}">Delete</button>
                     <button class="edit-button edit-expense-button" data-transaction-id="{{ expense.id }}">Edit</button>
+                    <form class="edit-transaction-form" data-transaction-id="{{ expense.id }}" style="display: none;">
+                        <input type="text" name="expense-date" placeholder="Date" value="{{ expense.expense_date }}">
+                        <input type="text" name="expense-description" placeholder="Description" value="{{ expense.expense_description }}">
+                        <input type="text" name="expense-category" placeholder="Category" value="{{ expense.expense_category }}">
+                        <input type="text" name="expense-amount" placeholder="Amount" value="{{ expense.expense_amount }}">
+                        <button class="save-edit-button" data-transaction-id="{{ expense.id }}">Save</button>
+                    </form>
+                    
                 </td>
             </tr>
             {% endfor %}
