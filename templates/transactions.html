@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+{% block content %}
+    <h1>Income Transactions</h1>
+    <table>
+        <tr>
+            <th>Date</th>
+            <th>Description</th>
+            <th>Amount</th>
+            <th>Action</th>
+        </tr>
+        {% for income in incomes %}
+        <tr>
+            <td>{{ income.income_date }}</td>
+            <td>{{ income.income_description }}</td>
+            <td>{{ income.income_amount }}</td>
+            <td>
+                <button class="delete-income-button" data-transaction-id="{{ income.id }}">Delete</button>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <h1>Expense Transactions</h1>
+    <table>
+        <tr>
+            <th>Date</th>
+            <th>Description</th>
+            <th>Category</th>
+            <th>Amount</th>
+            <th>Action</th>
+        </tr>
+        {% for expense in expenses %}
+        <tr>
+            <td>{{ expense.expense_date }}</td>
+            <td>{{ expense.expense_description }}</td>
+            <td>{{ expense.expense_category }}</td>
+            <td>{{ expense.expense_amount }}</td>
+            <td>
+                <button class="delete-expense-button" data-transaction-id="{{ expense.id }}">Delete</button>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <script>
+        // event listener to all buttons with the class "delete-income-button"
+        document.querySelectorAll('.delete-income-button').forEach(button => {
+            button.addEventListener('click', function(event) {
+                event.preventDefault();
+                const transactionId = this.getAttribute('data-transaction-id');
+                deleteTransaction(transactionId, 'income');
+            });
+        });
+
+        // Add a click event listener to all buttons with the class "delete-expense-button"
+        document.querySelectorAll('.delete-expense-button').forEach(button => {
+            button.addEventListener('click', function(event) {
+                event.preventDefault();
+                const transactionId = this.getAttribute('data-transaction-id');
+                deleteTransaction(transactionId, 'expense');
+            });
+        });
+
+        function deleteTransaction(transactionId, transactionType) {
+            if (confirm('Are you sure you want to delete this transaction?')) {
+                fetch(`/delete_transaction/${transactionId}`, {
+                    method: 'POST'
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.message === 'Transaction deleted successfully') {
+                        alert('Transaction deleted successfully');
+                        // Reload the page to reflect the changes
+                        location.reload();
+                    } else {
+                        alert('Transaction not found or unable to delete');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+            }
+        }
+    </script>
+{% endblock %}

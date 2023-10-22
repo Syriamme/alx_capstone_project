@@ -18,6 +18,10 @@ class Expense(Base):
         self.expense_description = expense_description
         self.expense_category = expense_category
         self.expense_amount = expense_amount
+    
+    @classmethod
+    def get_transaction_by_id(cls, session, transaction_id):
+        return session.query(cls).filter(cls.id == transaction_id).first()
 
 
 class Income(Base):
@@ -33,3 +37,7 @@ class Income(Base):
         self.income_date = income_date
         self.income_description = income_description
         self.income_amount = income_amount
+
+    @classmethod
+    def get_transaction_by_id(cls, session, transaction_id):
+        return session.query(cls).filter(cls.id == transaction_id).first()
