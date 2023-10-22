@@ -1,63 +1,161 @@
-{% extends "base.html" %}
-{% block content %}
-    <h1>Income Transactions</h1>
-    <table>
-        <tr>
-            <th>Date</th>
-            <th>Description</th>
-            <th>Amount</th>
-            <th>Action</th>
-        </tr>
-        {% for income in incomes %}
-        <tr>
-            <td>{{ income.income_date }}</td>
-            <td>{{ income.income_description }}</td>
-            <td>{{ income.income_amount }}</td>
-            <td>
-                <button class="delete-income-button" data-transaction-id="{{ income.id }}">Delete</button>
-            </td>
-        </tr>
-        {% endfor %}
-    </table>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Budget Tracker App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
 
-    <h1>Expense Transactions</h1>
-    <table>
-        <tr>
-            <th>Date</th>
-            <th>Description</th>
-            <th>Category</th>
-            <th>Amount</th>
-            <th>Action</th>
-        </tr>
-        {% for expense in expenses %}
-        <tr>
-            <td>{{ expense.expense_date }}</td>
-            <td>{{ expense.expense_description }}</td>
-            <td>{{ expense.expense_category }}</td>
-            <td>{{ expense.expense_amount }}</td>
-            <td>
-                <button class="delete-expense-button" data-transaction-id="{{ expense.id }}">Delete</button>
-            </td>
-        </tr>
-        {% endfor %}
-    </table>
+        h1 {
+            font-size: 24px;
+            margin: 20px 0;
+        }
 
-    <script>
-        // event listener to all buttons with the class "delete-income-button"
-        document.querySelectorAll('.delete-income-button').forEach(button => {
+        .table-header {
+            background-color: #3498db;
+            color: #fff;
+            padding: 10px;
+        }
+
+        .table-data {
+            padding: 10px;
+        }
+
+        .transaction-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .transaction-row:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        .delete-button {
+            background-color: #e74c3c;
+            color: #fff;
+            border: none;
+            padding: 8px 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .edit-button {
+            background-color: #3498db;
+            color: #fff;
+            border: none;
+            padding: 8px 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .delete-button:hover, .edit-button:hover {
+            background-color: #c0392b;
+        }
+
+        #income-content, #expense-content {
+            margin: 20px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div id="income-content">
+        <h1>Income Transactions</h1>
+        <table class="transaction-table">
+            <tr>
+                <th class="table-header">Date</th>
+                <th class="table-header">Description</th>
+                <th class="table-header">Amount</th>
+                <th class="table-header">Action</th>
+            </tr>
+            {% for income in incomes %}
+            <tr class="transaction-row" data-transaction-id="{{ income.id }}">
+                <td class="table-data">{{ income.income_date }}</td>
+                <td class="table-data">{{ income.income_description }}</td>
+                <td class="table-data">{{ income.income_amount }}</td>
+                <td class="table-data">
+                    <button class="delete-button delete-income-button" data-transaction-id="{{ income.id }}">Delete</button>
+                    <button class="edit-button edit-income-button" data-transaction-id="{{ income.id }}">Edit</button>
+                </td>
+                <form class="edit-transaction-form" data-transaction-id="{{ income.id }}" style="display: none;">
+                    <input type="text" name="income-date" placeholder="Date" value="{{ income.income_date }}">
+                    <input type="text" name="income-description" placeholder="Description" value="{{ income.income_description }}">
+                    <input type="text" name="income-amount" placeholder="Amount" value="{{ income.income_amount }}">
+                    <button class="save-edit-button" data-transaction-id="{{ income.id }}">Save</button>
+                </form>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+    <div id="expense-content">
+        <h1>Expense Transactions</h1>
+        <table class="transaction-table">
+            <tr>
+                <th class="table-header">Date</th>
+                <th class="table-header">Description</th>
+                <th class="table-header">Category</th>
+                <th class="table-header">Amount</th>
+                <th class="table-header">Action</th>
+            </tr>
+            {% for expense in expenses %}
+            <tr class="transaction-row" data-transaction-id="{{ expense.id }}">
+                <td class="table-data">{{ expense.expense_date }}</td>
+                <td class="table-data">{{ expense.expense_description }}</td>
+                <td class="table-data">{{ expense.expense_category }}</td>
+                <td class="table-data">{{ expense.expense_amount }}</td>
+                <td class="table-data">
+                    <button class="delete-button delete-expense-button" data-transaction-id="{{ expense.id }}">Delete</button>
+                    <button class="edit-button edit-expense-button" data-transaction-id="{{ expense.id }}">Edit</button>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</body>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        let isTransactionDeleted = false;
+
+        // Event listener for all delete buttons
+        document.querySelectorAll('.delete-button').forEach(button => {
             button.addEventListener('click', function(event) {
                 event.preventDefault();
                 const transactionId = this.getAttribute('data-transaction-id');
-                deleteTransaction(transactionId, 'income');
+                const transactionType = this.classList.contains('delete-income-button') ? 'income' : 'expense';
+
+                // Check if the transaction has already been deleted
+                if (!isTransactionDeleted) {
+                    deleteTransaction(transactionId, transactionType);
+                }
             });
         });
 
-        // Add a click event listener to all buttons with the class "delete-expense-button"
-        document.querySelectorAll('.delete-expense-button').forEach(button => {
+        // Event listener for all edit buttons
+        document.querySelectorAll('.edit-button').forEach(button => {
             button.addEventListener('click', function(event) {
                 event.preventDefault();
                 const transactionId = this.getAttribute('data-transaction-id');
-                deleteTransaction(transactionId, 'expense');
+                const editForm = document.querySelector(`.edit-transaction-form[data-transaction-id="${transactionId}"]`);
+                editForm.style.display = 'block';
+            });
+        });
+
+        // Event listener for the "Save" button in the edit form
+        document.querySelectorAll('.save-edit-button').forEach(button => {
+            button.addEventListener('click', function(event) {
+                event.preventDefault();
+                const transactionId = this.getAttribute('data-transaction-id');
+                const transactionType = this.classList.contains('save-edit-income-button') ? 'income' : 'expense';
+                saveEditedTransaction(transactionId, transactionType);
             });
         });
 
@@ -68,9 +166,9 @@
                 })
                 .then(response => response.json())
                 .then(data => {
-                    if (data.message === 'Transaction deleted successfully') {
+                    if (data.message === 'Expense deleted successfully' || data.message === 'Income deleted successfully') {
                         alert('Transaction deleted successfully');
-                        // Reload the page to reflect the changes
+                        isTransactionDeleted = true;
                         location.reload();
                     } else {
                         alert('Transaction not found or unable to delete');
@@ -81,5 +179,28 @@
                 });
             }
         }
-    </script>
-{% endblock %}
+
+        function saveEditedTransaction(transactionId, transactionType) {
+            const editForm = document.querySelector(`.edit-transaction-form[data-transaction-id="${transactionId}"]`);
+            const formData = new FormData(editForm);
+
+            fetch(`/update_transaction/${transactionId}`, {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.message === 'Expense updated successfully' || data.message === 'Income updated successfully') {
+                    alert('Transaction updated successfully');
+                    location.reload();
+                } else {
+                    alert('Transaction not found or unable to update');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+    });
+</script>
+</html>
