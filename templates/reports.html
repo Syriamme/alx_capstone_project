@@ -82,7 +82,7 @@
             fetch('/get_transactions')
                 .then(response => response.json())
                 .then(data => {
-                    // Extract data for the pie chart
+                    // Extracting data for the pie chart
                     const expenseData = data.filter(item => item.type === 'expense');
                     const categories = {};
 
@@ -106,7 +106,7 @@
                         'rgba(153, 102, 255, 0.2)'
                     ];
 
-                    // Create the pie chart with the fetched categories and colors
+                    // Creating the pie chart with the fetched categories and colors
                     const pieChartCanvas = document.getElementById('myPieChart').getContext('2d');
                     const pieChart = new Chart(pieChartCanvas, {
                         type: 'pie',

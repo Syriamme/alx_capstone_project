@@ -39,6 +39,7 @@
 
 .sidebar {
     background-color: #fff;
+    border-radius: 20px;
     color: #000;
     font-weight: bolder;
     font-size: large;
@@ -56,14 +57,35 @@
 
 .sidebar li {
     margin: 100px 0;
+    padding: 20px;
 }
 
 .sidebar a {
     text-decoration: none;
     display: block;
 }
+i.fas {
+    margin-right: 10px;
+    font-size: 34px;
+}
 
-/* New styles for the chart container */
+.transaction-history a {
+    color: #3498db;
+}
+
+.reports-insights a {
+    color: #f39c12;
+}
+
+.account-management a {
+    color: #e74c3c;
+}
+
+.settings a {
+    color: #1da963;
+}
+
+/* Styles for the chart container */
 .chart-container {
     background-color: #fff;
     padding: 20px;

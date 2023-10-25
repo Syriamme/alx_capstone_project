@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="static/settings.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
-<body>
+<body data-theme="light">
     <div>
         <nav>
             <div class="logo">
@@ -31,14 +31,19 @@
     <div class="content">
         {% block content %}{% endblock %}
     </div>
-
     <footer>
-        <ul class="footer-menu">
-            <li><a href="#">Home</a></li>
-            <li><a href="#">Overview</a></li>
-            <li><a href="#">Settings</a></li>
-        </ul>
+        <div class="footer-menu">
+            <ul>
+                <li><a href="#"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="#"><i class="fas fa-cog"></i> Settings</a></li>
+                <li><a href="#"><i class="fas fa-info-circle"></i> Overview</a></li>
+            </ul>
+        </div>
+        <div class="copyright">
+            &copy; 2023 Your Company Name. All Rights Reserved.
+        </div>
     </footer>
+
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
@@ -219,43 +224,6 @@
                 }
             });
         }
-    </script>   
-    <script>
-        // Theme Changer
-        const themeToggle = document.getElementById("theme-toggle");
-        const body = document.body;
-    
-        // Check the current theme from localStorage when the page loads
-        if (localStorage.getItem("theme") === "dark") {
-            themeToggle.checked = true;
-            body.classList.add("dark-theme");
-        }
-    
-        themeToggle.addEventListener("change", () => {
-            if (themeToggle.checked) {
-                body.classList.add("dark-theme");
-                localStorage.setItem("theme", "dark");
-            } else {
-                body.classList.remove("dark-theme");
-                localStorage.setItem("theme", "light");
-            }
-        });
-    
-        // Theme Changer Button
-        const themeChangerButton = document.getElementById("theme-changer-button");
-    
-        themeChangerButton.addEventListener("click", () => {
-            // Toggle the theme when the button is clicked
-            if (body.classList.contains("dark-theme")) {
-                themeToggle.checked = false;
-                body.classList.remove("dark-theme");
-                localStorage.setItem("theme", "light");
-            } else {
-                themeToggle.checked = true;
-                body.classList.add("dark-theme");
-                localStorage.setItem("theme", "dark");
-            }
-        });
-    </script>
+    </script> 
 </body>
 </html>

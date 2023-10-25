@@ -1,29 +1,28 @@
-{% extends "base.html" %}
-
-{% block title %}Login and Signup{% endblock %}
-
-{% block content %}
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="static/login.css">
+</head>
+<body class="login-forms">
     <div id="login-container">
-        <h2>Login</h2>
+        <h2 class="login-header">Login</h2>
         <form action="/login" method="POST">
-            <!-- Login form fields go here -->
-            <input type="text" name="username" placeholder="Username" required>
-            <input type="password" name="password" placeholder="Password" required>
-            <button type="submit">Login</button>
+            <input type="text" name="username" class="custom-username" placeholder="Username" required>
+            <input type="password" name="password" class="custom-password" placeholder="Password" required>
+            <button type="submit" class="custom-login-button">Login</button>
         </form>
         <p>Don't have an account? <a href="javascript:void(0);" id="show-signup">Sign Up</a></p>
     </div>
 
     <div id="signup-container" style="display: none;">
-        <h2>Sign Up</h2>
+        <h2 class="login-header">Sign Up</h2>
         <form action="/signup" method="POST">
-            <!-- Signup form fields go here -->
-            <input type="text" name="full_name" placeholder="Full Name" required>
-            <input type="email" name="email" placeholder="Email" required>
-            <input type="text" name="username" placeholder="Username" required>
-            <input type="password" name="password" placeholder="Password" required>
-            <input type="password" name="confirm_password" placeholder="Confirm Password" required>
-            <button type="submit">Sign Up</button>
+            <input type="text" name="full_name" class="custom-fullname" placeholder="Full Name" required>
+            <input type="email" name="email" class="custom-email" placeholder="Email" required>
+            <input type="text" name="username" class="custom-username" placeholder="Username" required>
+            <input type="password" name="password" class="custom-password" placeholder="Password" required>
+            <input type="password" name="confirm_password" class="custom-confirm-password" placeholder="Confirm Password" required>
+            <button type="submit" class="custom-signup-button">Sign Up</button>
         </form>
         <p>Already have an account? <a href="javascript:void(0);" id="show-login">Login</a></p>
     </div>
@@ -46,4 +45,5 @@
             signupContainer.style.display = "block";
         });
     </script>
-{% endblock %}
+</body>
+</html>

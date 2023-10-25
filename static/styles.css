@@ -248,34 +248,39 @@ button:hover {
   padding: 10px;
 }
 
-/* Footer */
+/* Style the footer */
 footer {
-  color: white;
+  background-color: #49cb6e;
+  color: #fff;
   text-align: center;
-  padding: 20px 0;
+  margin-top: 40px;
+  height: 140px;
 }
 
-.footer-menu {
-  list-style: none;
+
+/* Style the footer menu */
+.footer-menu ul {
   display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-  align-content: center;
-  margin-top: 10px;
+  justify-content: center;
+  padding: 30px;
 }
 
 .footer-menu li {
-  margin-right: 20px;
+  margin: 0 80px; 
 }
 
 .footer-menu a {
   text-decoration: none;
-  color: white;
-  font-weight: bold;
-  transition: color 0.3s;
+  color: #fff;
+  font-weight: bold; 
+  font-size: 20px; 
 }
-
-.footer-menu a:hover {
-  color: #34e89e;
+.footer-menu i {
+  margin-right: 5px;
+}
+/* Style the copyright notice */
+.copyright {
+  margin-top: 20px;
+  font-size: 12px;
 }
 

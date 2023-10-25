@@ -31,4 +31,22 @@
         </div>
 
     </div>
+    <script>
+        const themeToggle = document.getElementById("theme-toggle");
+        const body = document.body;
+    
+        themeToggle.addEventListener("change", () => {
+            const isDarkMode = themeToggle.checked;
+    
+            if (isDarkMode) {
+                body.setAttribute("data-theme", "dark");
+            } else {
+                body.setAttribute("data-theme", "light");
+            }
+        });
+    
+        // Check the initial theme preference and set the toggle accordingly
+        const currentTheme = body.getAttribute("data-theme");
+        themeToggle.checked = currentTheme === "dark";
+    </script>   
 {% endblock %}
