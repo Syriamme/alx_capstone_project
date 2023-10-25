@@ -48,20 +48,21 @@ def add_income():
     income_date = request.form.get('income-date')
     income_description = request.form.get('income-description')
     income_amount = float(request.form.get('income-amount'))
-    
+
     new_income = Income(
         income_date=income_date,
         income_description=income_description,
         income_amount=income_amount
     )
-    
+
     session.add(new_income)
     session.commit()
-    
+
     response_data = {
         'message': 'Income added successfully',
     }
-    
+    return jsonify(response_data), 200
+
 # Route for deleting income
 @app.route('/dashboard/delete_income/<int:income_id>', methods=['POST'])
 def delete_income(income_id):
