@@ -6,6 +6,8 @@
     <title>{% block title %}Budget Tracker App{% endblock %}</title>
     <link rel="stylesheet" href="static/styles.css">
     <link rel="stylesheet" href="static/dashboard.css">
+    <link rel="stylesheet" type="text/css" href="static/login.css">
+    <link rel="stylesheet" href="static/settings.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
@@ -16,8 +18,7 @@
             </div>
             <ul class="navbar">
                 <li class="nav-item"><a class="nav-link" href="/home">Home</a></li>
-                <li><a href="#">Login</a></li>
-                <li><a href="#">Signup</a></li>
+                <li><a href="/login">Login</a></li>
                 <li class="nav-item"><a class="nav-link" href="/dashboard">Dashboard</a></li>
                 <li><input type="text" placeholder="Search"></li>
             </ul>
@@ -39,6 +40,7 @@
         </ul>
     </footer>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             // Event listener for input in the expense amount field
@@ -210,15 +212,50 @@
                             categoryAmountElement.textContent = `$${categoryExpenses[category].toFixed(2)}`;
                         }
                     }
+                    checkExpenseLimits(categoryExpenses);
                 },
                 error: function (error) {
                     console.error(error);
                 }
             });
         }
+    </script>   
+    <script>
+        // Theme Changer
+        const themeToggle = document.getElementById("theme-toggle");
+        const body = document.body;
+    
+        // Check the current theme from localStorage when the page loads
+        if (localStorage.getItem("theme") === "dark") {
+            themeToggle.checked = true;
+            body.classList.add("dark-theme");
+        }
+    
+        themeToggle.addEventListener("change", () => {
+            if (themeToggle.checked) {
+                body.classList.add("dark-theme");
+                localStorage.setItem("theme", "dark");
+            } else {
+                body.classList.remove("dark-theme");
+                localStorage.setItem("theme", "light");
+            }
+        });
+    
+        // Theme Changer Button
+        const themeChangerButton = document.getElementById("theme-changer-button");
+    
+        themeChangerButton.addEventListener("click", () => {
+            // Toggle the theme when the button is clicked
+            if (body.classList.contains("dark-theme")) {
+                themeToggle.checked = false;
+                body.classList.remove("dark-theme");
+                localStorage.setItem("theme", "light");
+            } else {
+                themeToggle.checked = true;
+                body.classList.add("dark-theme");
+                localStorage.setItem("theme", "dark");
+            }
+        });
     </script>
-    
-    
-    
 </body>
 </html>

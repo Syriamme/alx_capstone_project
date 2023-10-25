@@ -1,0 +1,9 @@
+#chart-container {
+    float: left;
+    width: 50%;
+}
+
+#pie-chart-container {
+    float: left;
+    width: 50%; 
+}

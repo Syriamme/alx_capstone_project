@@ -24,17 +24,138 @@
                 <a href="/dashboard/view_transactions"><i class="fas fa-history"></i> Transaction History</a>
             </li>
             <li>
-                <a href="#" id="reports-link"><i class="fas fa-lightbulb"></i> Reports or Insights</a>
+                <a href="/dashboard/reports" id="reports-link"><i class="fas fa-lightbulb"></i> Reports or Insights</a>
             </li>
             <li>
-                <a href="#" id="logout-link"><i class="fas fa-sign-out-alt"></i> Logout/Account Management</a>
+                <a href="#" id="account-management"><i class="fas fa-sign-out-alt"></i> Account Management</a>
             </li>
             <li>
-                <a href="#" id="settings-link"><i class="fas fa-cog"></i> Settings and Preferences</a>
+                <a href="/settings" id="settings-link"><i class="fas fa-cog"></i> Settings and Preferences</a>
             </li>
         </ul>
     </nav>
-    <div class="transaction-tables" style="display: none;"></div>  {# Container for transaction tables #}
+    <div class="chart-container">
+        <h2>Reports and Insights</h2>
+        <canvas id="myChart"></canvas>
+    </div>
+    <div class="chart-container">
+        <h2>Pie Chart</h2>
+        <canvas id="myPieChart"></canvas>
+    </div>
 </div>
 </div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    // Defining the chart data and options
+    const chartData = {
+        labels: ['Total Income', 'Total Expense'],
+        datasets: [{
+            label: 'Amount',
+            data: [0, 0],
+            backgroundColor: ['rgba(75, 192, 192, 0.2)', 'rgba(255, 99, 132, 0.2)'],
+            borderColor: ['rgba(75, 192, 192, 1)', 'rgba(255, 99, 132, 1)'],
+            borderWidth: 1
+        }]
+    };
+
+    const chartOptions = {
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        },
+        plugins: {
+            title: {
+                display: true,
+                text: 'Income vs. Expense',
+                font: {
+                    size: 16,
+                }
+            }
+        }
+    };
+
+    const ctx = document.getElementById('myChart').getContext('2d');
+    const myChart = new Chart(ctx, {
+        type: 'bar',
+        data: chartData,
+        options: chartOptions
+    });
+
+    // Function to update the chart data
+    function updateChart() {
+        fetch('/get_transactions')
+            .then(response => response.json())
+            .then(data => {
+                // Processing the data and updating the chart
+                const incomeData = data.filter(item => item.type === 'income');
+                const expenseData = data.filter(item => item.type === 'expense');
+
+                const totalIncome = incomeData.reduce((sum, item) => sum + item.amount, 0);
+                const totalExpense = expenseData.reduce((sum, item) => sum + item.amount, 0);
+
+                myChart.data.datasets[0].data = [totalIncome, totalExpense];
+                myChart.update();
+            });
+    }
+
+    // Calling the updateChart function to initially load the chart data
+    updateChart();
+</script>
+<script>
+    // Function to update the pie chart
+    function updatePieChart() {
+        fetch('/get_transactions')
+            .then(response => response.json())
+            .then(data => {
+                // Extract data for the pie chart
+                const expenseData = data.filter(item => item.type === 'expense');
+                const categories = {};
+                
+                expenseData.forEach(item => {
+                    if (categories[item.category]) {
+                        categories[item.category] += item.amount;
+                    } else {
+                        categories[item.category] = item.amount;
+                    }
+                });
+                
+                const categoryNames = Object.keys(categories);
+                const categoryAmounts = categoryNames.map(category => categories[category]);
+                
+                // Define an array of colors for the pie chart
+                const colors = [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(153, 102, 255, 0.2)'
+                ];
+    
+                // Create the pie chart with the fetched categories and colors
+                const pieChartCanvas = document.getElementById('myPieChart').getContext('2d');
+                const pieChart = new Chart(pieChartCanvas, {
+                    type: 'pie',
+                    data: {
+                        labels: categoryNames,
+                        datasets: [{
+                            data: categoryAmounts,
+                            backgroundColor: colors,
+                        }],
+                    },
+                    options: {
+                        plugins: {
+                            title: {
+                                display: true,
+                                text: 'Expense Categories',
+                            },
+                        },
+                    },
+                });
+            });
+    }
+
+    // Call the updatePieChart function to initially load the pie chart
+    updatePieChart();
+</script>
 {% endblock %}

@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
+<div id="custom-alert" class="custom-alert"></div>
 <div class="balance">
     <h2>Remaining Balance:</h2>
     <span class="balance-amount"></span>
@@ -86,4 +87,45 @@
         </tr>
     </table>
 </div>
+<script>
+    // Define expense limits
+    const expenseLimits = {
+        food: 1000.0,
+        rent: 2000.0,
+        transport: 5000.0,
+        loan: 1000.0,
+        entertainment: 2500.0,
+    };
+
+    // Function to check expense limits and show custom alerts
+    function checkExpenseLimits(categoryExpenses) {
+        let exceededCategories = [];
+
+        for (const category in categoryExpenses) {
+            if (categoryExpenses.hasOwnProperty(category)) {
+                const categoryAmount = categoryExpenses[category];
+                if (categoryAmount > expenseLimits[category]) {
+                    exceededCategories.push(category);
+                }
+            }
+        }
+
+        if (exceededCategories.length > 0) {
+            const customAlert = document.getElementById("custom-alert");
+            customAlert.textContent = `You have exceeded the expense limits for: ${exceededCategories.join(", ")}`;
+            customAlert.classList.add("red-alert");
+
+            let blinkCount = 0;
+            const blinkInterval = setInterval(function () {
+                customAlert.style.display = customAlert.style.display === 'none' ? 'block' : 'none';
+
+                blinkCount++;
+                if (blinkCount >= 6) {
+                    clearInterval(blinkInterval);
+                    customAlert.style.display = 'none';
+                }
+            }, 1000);
+        }
+    }
+</script>
 {% endblock %}

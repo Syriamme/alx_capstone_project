@@ -64,9 +64,28 @@
             border-radius: 5px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
+        .transaction-buttons {
+            display: flex;
+            justify-content: space-between;
+        }
+        .download-button, .back-button {
+            background-color: #3498db;
+            color: #fff;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        .download-button:hover, .back-button:hover {
+            background-color: #2980b9;
+        }
     </style>
 </head>
 <body>
+    <div class="transaction-buttons">
+        <a href="/home" class="back-button">Back</a>
+    </div>
+
     <div id="income-content">
         <h1>Income Transactions</h1>
         <table class="transaction-table">
@@ -95,6 +114,7 @@
             {% endfor %}
         </table>
     </div>
+    <a href="/download_all_transactions?type=income" class="download-button">Download Income Transactions</a>
 
     <div id="expense-content">
         <h1>Expense Transactions</h1>
@@ -128,6 +148,7 @@
             {% endfor %}
         </table>
     </div>
+    <a href="/download_all_transactions?type=expense" class="download-button">Download Expense Transactions</a>
 </body>
 <script>
     document.addEventListener("DOMContentLoaded", function() {
@@ -140,7 +161,7 @@
                 const transactionId = this.getAttribute('data-transaction-id');
                 const transactionType = this.classList.contains('delete-income-button') ? 'income' : 'expense';
 
-                // Check if the transaction has already been deleted
+                // Checking if the transaction has already been deleted
                 if (!isTransactionDeleted) {
                     deleteTransaction(transactionId, transactionType);
                 }

@@ -239,6 +239,14 @@ button:hover {
 .tabname {
   color:#000;
 }
+.red-alert {
+  background-color: red;
+  color: white;
+  text-align: center;
+  font-size: 50px;
+  font-weight: bolder;
+  padding: 10px;
+}
 
 /* Footer */
 footer {
@@ -270,3 +278,4 @@ footer {
 .footer-menu a:hover {
   color: #34e89e;
 }
+
