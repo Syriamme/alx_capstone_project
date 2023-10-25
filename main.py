@@ -224,6 +224,29 @@ def download_all_transactions():
     response.headers["Content-Disposition"] = f"attachment; filename={filename}"
     
     return response
+
+# Route to get income, expense, and remaining balance
+@app.route('/get_balance_data', methods=['GET'])
+def get_balance_data():
+    # Calculate the total income and total expense
+    incomes = session.query(Income).all()
+    expenses = session.query(Expense).all()
+    
+    total_income = sum(income.income_amount for income in incomes)
+    total_expense = sum(expense.expense_amount for expense in expenses)
+
+    # Calculate the remaining balance
+    remaining_balance = total_income - total_expense
+
+    # Return the data as JSON
+    data = {
+        'total_income': total_income,
+        'total_expense': total_expense,
+        'remaining_balance': remaining_balance
+    }
+
+    return jsonify(data)
+
 #Route for login
 @app.route('/login')
 def login():

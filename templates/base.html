@@ -144,8 +144,8 @@
     
             // Function to update the budget when the page loads
             function updateBudget() {
-                const totalIncomeSpan = document.querySelector(".current-income-amount span");
-                const totalExpensesSpan = document.querySelector(".current-expense-amount span");
+                const totalIncomeSpan = document.querySelector(".current-income-amount");
+                const totalExpensesSpan = document.querySelector(".current-expense-amount");
                 const remainingBalanceSpan = document.querySelector(".balance-amount");
     
                 // Fetch transactions from the Flask API
