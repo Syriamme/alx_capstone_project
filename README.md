@@ -1,4 +1,6 @@
 # Budget Tracker App
+# Prototype
+![image](https://github.com/Syriamme/alx_capstone_project/assets/122893216/1bc9c06e-6e32-4986-a529-68c193d33100)
 
 ## Project Overview
 
