@@ -250,8 +250,8 @@ button:hover {
 
 /* Style the footer */
 footer {
-  background-color: #49cb6e;
-  color: #fff;
+  background-color: #fff;
+  color: #000;
   text-align: center;
   margin-top: 40px;
   height: 140px;
